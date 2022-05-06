@@ -2,6 +2,8 @@ node{
     echo "Job name is: ${env.JOB_NAME}"
     echo "Node name is : ${env.NODE_NAME}"
     echo "Build number is: ${env.BUILD_NUMBER}"
+    //Configured discard builds and POLSCM
+    properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '5', daysToKeepStr: '', numToKeepStr: '5')), [$class: 'JobLocalConfiguration', changeReasonComment: ''], pipelineTriggers([pollSCM('* * * * *')])])
 def mavenHome = tool name: 'Maven 3.8.5'
 //Get the code from github repository
 stage('checkoutcode'){
