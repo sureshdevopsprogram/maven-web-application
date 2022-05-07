@@ -31,6 +31,7 @@ node{
     properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '5', daysToKeepStr: '', numToKeepStr: '5')), [$class: 'JobLocalConfiguration', changeReasonComment: ''], pipelineTriggers([pollSCM('* * * * *')])])
 def mavenHome = tool name: 'Maven 3.8.5'
 try{
+sendslacknotification('STARTED')
 //Get the code from github repository
 stage('checkoutcode'){
 git branch: 'development', credentialsId: 'a40d5448-1e55-4bb9-99ac-be1248aec3a0', url: 'https://github.com/sureshdevopsprogram/maven-web-application.git'
